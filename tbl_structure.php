@@ -95,7 +95,8 @@ $cfgRelation = PMA_getRelationsParam();
  * Runs common work
  */
 require_once 'libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_structure.php&amp;back=tbl_structure.php';
+// Allen: Replace '&amp;' with PMA_get_arg_separator('html').
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_structure.php'.PMA_get_arg_separator('html').'back=tbl_structure.php';
 $url_params['goto'] = 'tbl_structure.php';
 $url_params['back'] = 'tbl_structure.php';
 

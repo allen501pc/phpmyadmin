@@ -22,7 +22,8 @@ $response = PMA_Response::getInstance();
  * Runs common work
  */
 require 'libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_operations.php&amp;back=tbl_operations.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_operations.php'.PMA_get_arg_separator('html').'back=tbl_operations.php';
 $url_params['goto'] = $url_params['back'] = 'tbl_operations.php';
 
 /**

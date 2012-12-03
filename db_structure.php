@@ -59,7 +59,8 @@ if (empty($_POST['is_info'])) {
         }
     }
     include 'libraries/db_common.inc.php';
-    $url_query .= '&amp;goto=db_structure.php';
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+    $url_query .= PMA_get_arg_separator('html').'goto=db_structure.php';
 
     // Gets the database structure
     $sub_part = '_structure';
@@ -161,7 +162,8 @@ foreach ($tables as $keyname => $current_table) {
     $table_is_view = false;
     $table_encoded = urlencode($current_table['TABLE_NAME']);
     // Sets parameters for links
-    $tbl_url_query = $url_query . '&amp;table=' . $table_encoded;
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+    $tbl_url_query = $url_query . PMA_get_arg_separator('html').'table=' . $table_encoded;
     // do not list the previous table's size info for a view
 
     list($current_table, $formatted_size, $unit, $formatted_overhead,

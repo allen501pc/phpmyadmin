@@ -26,7 +26,8 @@ $scripts  = $header->getScripts();
 $scripts->addFile('tbl_relation.js');
 
 require_once 'libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_sql.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_sql.php';
 
 /**
  * Sets globals from $_POST

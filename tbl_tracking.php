@@ -11,7 +11,8 @@ require_once './libraries/common.inc.php';
 
 define('TABLE_MAY_BE_ABSENT', true);
 require './libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_tracking.php&amp;back=tbl_tracking.php';
+// Allen: Replace '&amp;'. with PMA_get_arg_separator('html').
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_tracking.php'.PMA_get_arg_separator('html').'back=tbl_tracking.php';
 $url_params['goto'] = 'tbl_tracking.php';;
 $url_params['back'] = 'tbl_tracking.php';
 
@@ -576,9 +577,10 @@ if (isset($_REQUEST['report']) || isset($_REQUEST['report_export'])) {
                 echo '<td><small>' . htmlspecialchars($entry['date']) . '</small></td>';
                 echo '<td><small>' . htmlspecialchars($entry['username']) . '</small></td>';
                 echo '<td>' . $statement . '</td>';
+		// Allen: Replace '&amp;' with PMA_get_arg_separator('html')
                 echo '<td class="nowrap"><a href="tbl_tracking.php?'
-                    . $url_query . '&amp;report=true&amp;version='
-                    . $version['version'] . '&amp;delete_ddlog='
+                    . $url_query . PMA_get_arg_separator('html').'report=true'.PMA_get_arg_separator('html').'version='
+                    . $version['version'] . PMA_get_arg_separator('html').'delete_ddlog='
                     . ($i - 1) . '">' . $drop_image_or_text
                     . '</a></td>';
                 echo '</tr>';
@@ -638,9 +640,10 @@ if (isset($_REQUEST['report']) || isset($_REQUEST['report_export'])) {
                 echo '<td><small>' . htmlspecialchars($entry['date']) . '</small></td>';
                 echo '<td><small>' . htmlspecialchars($entry['username']) . '</small></td>';
                 echo '<td>' . $statement . '</td>';
+		// Allen: Replace '&amp;' with PMA_get_arg_separator('html').
                 echo '<td class="nowrap"><a href="tbl_tracking.php?' . $url_query
-                    . '&amp;report=true&amp;version=' . $version['version']
-                    . '&amp;delete_dmlog=' . ($i - $ddlog_count) . '">'
+                    . PMA_get_arg_separator('html').'report=true'.PMA_get_arg_separator('html').'version=' . $version['version']
+                    . PMA_get_arg_separator('html').'delete_dmlog=' . ($i - $ddlog_count) . '">'
                     . $drop_image_or_text
                     . '</a></td>';
                 echo '</tr>';

@@ -19,7 +19,8 @@ $scripts->addFile('db_structure.js');
  * If we are not in an Ajax request, then do the common work and show the links etc.
  */
 include 'libraries/db_common.inc.php';
-$url_query .= '&amp;goto=tbl_tracking.php&amp;back=db_tracking.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_tracking.php'.PMA_get_arg_separator('html').'back=db_tracking.php';
 
 // Get the database structure
 $sub_part = '_structure';
@@ -121,11 +122,14 @@ if (PMA_DBI_num_rows($all_tables_result) > 0) {
         } else {
             $version_status = __('not active');
         }
-        $tmp_link = 'tbl_tracking.php?' . $url_query . '&amp;table='
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+        $tmp_link = 'tbl_tracking.php?' . $url_query . PMA_get_arg_separator('html').'table='
             . htmlspecialchars($version_data['table_name']);
-        $delete_link = 'db_tracking.php?' . $url_query . '&amp;table='
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+        $delete_link = 'db_tracking.php?' . $url_query . PMA_get_arg_separator('html').'table='
             . htmlspecialchars($version_data['table_name'])
-            . '&amp;delete_tracking=true&amp';
+            . PMA_get_arg_separator('html').'delete_tracking=true&amp';
+	    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
         ?>
         <tr class="noclick <?php echo $style;?>">
             <td><?php echo htmlspecialchars($version_data['db_name']);?></td>
@@ -136,8 +140,8 @@ if (PMA_DBI_num_rows($all_tables_result) > 0) {
             <td><?php echo $version_status;?></td>
             <td><a class="drop_tracking_anchor<?php echo ($GLOBALS['cfg']['AjaxEnable'] ? ' ajax' : ''); ?>" href="<?php echo $delete_link;?>" ><?php echo $drop_image_or_text; ?></a></td>
             <td> <a href="<?php echo $tmp_link; ?>"><?php echo __('Versions');?></a>
-               | <a href="<?php echo $tmp_link; ?>&amp;report=true&amp;version=<?php echo $version_data['version'];?>"><?php echo __('Tracking report');?></a>
-               | <a href="<?php echo $tmp_link; ?>&amp;snapshot=true&amp;version=<?php echo $version_data['version'];?>"><?php echo __('Structure snapshot');?></a></td>
+               | <a href="<?php echo $tmp_link; ?><?php echo PMA_get_arg_separator('html'); ?>report=true<?php echo PMA_get_arg_separator('html'); ?>version=<?php echo $version_data['version'];?>"><?php echo __('Tracking report');?></a>
+               | <a href="<?php echo $tmp_link; ?><?php echo PMA_get_arg_separator('html'); ?>snapshot=true<?php echo PMA_get_arg_separator('html'); ?>version=<?php echo $version_data['version'];?>"><?php echo __('Structure snapshot');?></a></td>
         </tr>
         <?php
         if ($style == 'even') {
@@ -207,8 +211,9 @@ if (isset($my_tables)) {
 
     foreach ($my_tables as $key => $tablename) {
         if (PMA_Tracker::getVersion($GLOBALS['db'], $tablename) == -1) {
+	    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
             $my_link = '<a href="tbl_tracking.php?' . $url_query
-                . '&amp;table=' . htmlspecialchars($tablename) .'">';
+                . PMA_get_arg_separator('html').'table=' . htmlspecialchars($tablename) .'">';
             $my_link .= PMA_Util::getIcon('eye.png', __('Track table'));
             $my_link .= '</a>';
         ?>

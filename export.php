@@ -443,9 +443,11 @@ if (! $save_on_server) {
         }
 
         foreach ($_REQUEST as $name => $value) {
-            $back_button .= '&amp;' . urlencode($name) . '=' . urlencode($value);
+	    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+            $back_button .= PMA_get_arg_separator('html') . urlencode($name) . '=' . urlencode($value);
         }
-        $back_button .= '&amp;repopulate=1">Back</a> ]</p>';
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+        $back_button .= PMA_get_arg_separator('html').'repopulate=1">Back</a> ]</p>';
 
         echo $back_button;
         echo '    <form name="nofunction">' . "\n"

@@ -45,7 +45,8 @@ if (! isset($_POST['columnsToDisplay']) && ! isset($_POST['displayAllColumns']))
     // Gets some core libraries
     include_once 'libraries/tbl_common.inc.php';
     //$err_url   = 'tbl_select.php' . $err_url;
-    $url_query .= '&amp;goto=tbl_select.php&amp;back=tbl_select.php';
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
+    $url_query .= PMA_get_arg_separator('html').'goto=tbl_select.php'.PMA_get_arg_separator('html').'back=tbl_select.php';
     /**
      * Gets table's information
      */

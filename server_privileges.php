@@ -303,15 +303,17 @@ if (isset($_REQUEST['delete'])
     || (isset($_REQUEST['change_copy']) && $_REQUEST['mode'] < 4)
 ) {
     if (isset($_REQUEST['change_copy'])) {
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
         $selected_usr = array(
-            $_REQUEST['old_username'] . '&amp;#27;' . $_REQUEST['old_hostname']
+            $_REQUEST['old_username'] . PMA_get_arg_separator('html').'#27;' . $_REQUEST['old_hostname']
         );
     } else {
         $selected_usr = $_REQUEST['selected_usr'];
         $queries = array();
     }
     foreach ($selected_usr as $each_user) {
-        list($this_user, $this_host) = explode('&amp;#27;', $each_user);
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+        list($this_user, $this_host) = explode(PMA_get_arg_separator('html').'#27;', $each_user);
         $queries[] = '# '
             . sprintf(
                 __('Deleting %s'),
@@ -402,8 +404,8 @@ if ($GLOBALS['is_ajax_request']
  */
 if (isset($_REQUEST['viewing_mode']) && $_REQUEST['viewing_mode'] == 'db') {
     $_REQUEST['db'] = $_REQUEST['checkprivs'];
-
-    $url_query .= '&amp;goto=db_operations.php';
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+    $url_query .= PMA_get_arg_separator('html').'goto=db_operations.php';
 
     // Gets the database structure
     $sub_part = '_structure';

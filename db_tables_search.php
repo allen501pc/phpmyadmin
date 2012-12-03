@@ -17,6 +17,7 @@ $tables_response = array();
 
 foreach ($tables_full as $key => $table) {
     if (strpos($key, $table_term) !== false) {
+        // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
         $link = '<li class="ajax_table"><a class="tableicon" title="'
             . htmlspecialchars($link_title)
             . ': ' . htmlspecialchars($table['Comment'])
@@ -26,8 +27,8 @@ foreach ($tables_full as $key => $table) {
             . htmlspecialchars($table_db . '.' . $table['Name']) . '"'
             . ' href="' . $GLOBALS['cfg']['NavigationTreeDefaultTabTable'] . '?'
             . $common_url_query
-            . '&amp;table=' . urlencode($table['Name'])
-            . '&amp;goto=' . $GLOBALS['cfg']['NavigationTreeDefaultTabTable']
+            . PMA_get_arg_separator('html').'table=' . urlencode($table['Name'])
+            . PMA_get_arg_separator('html').'goto=' . $GLOBALS['cfg']['NavigationTreeDefaultTabTable']
             . '" >';
         $attr = array(
             'id' => 'icon_' . htmlspecialchars($table_db . '.' . $table['Name'])
@@ -43,9 +44,10 @@ foreach ($tables_full as $key => $table) {
         }
         $link .= '</a>';
         // link for the table name itself
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
         $href = $GLOBALS['cfg']['DefaultTabTable'] . '?'
-                . $common_url_query . '&amp;table='
-                . urlencode($table['Name']) . '&amp;pos=0';
+                . $common_url_query . PMA_get_arg_separator('html').'table='
+                . urlencode($table['Name']) . PMA_get_arg_separator('html').'pos=0';
         $link .= '<a href="' . $href . '" title="'
             . htmlspecialchars(
                 PMA_Util::getTitleForTarget(

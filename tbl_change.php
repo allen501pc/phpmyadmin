@@ -237,7 +237,8 @@ foreach ($rows as $row_id => $current_row) {
     }
 
     $jsvkey = $row_id;
-    $rownumber_param = '&amp;rownumber=' . $row_id;
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+    $rownumber_param = PMA_get_arg_separator('html').'rownumber=' . $row_id;
     $vkey = '[multi_edit][' . $jsvkey . ']';
 
     $current_result = (isset($result) && is_array($result) && isset($result[$row_id])

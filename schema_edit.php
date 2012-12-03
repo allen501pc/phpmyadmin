@@ -15,7 +15,8 @@ require 'libraries/StorageEngine.class.php';
 
 $active_page = 'db_operations.php';
 require_once 'libraries/db_common.inc.php';
-$url_query .= '&amp;goto=schema_edit.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+$url_query .= PMA_get_arg_separator('html').'goto=schema_edit.php';
 require_once 'libraries/db_info.inc.php';
 
 /**

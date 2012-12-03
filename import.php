@@ -159,9 +159,10 @@ if ($import_type == 'table') {
     } else {
         $common = PMA_generate_common_url();
     }
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'
     $err_url  = $goto . '?' . $common
         . (preg_match('@^tbl_[a-z]*\.php$@', $goto)
-            ? '&amp;table=' . htmlspecialchars($table)
+            ? PMA_get_arg_separator('html').'table=' . htmlspecialchars($table)
             : '');
     $_SESSION['Import_message']['go_back_url'] = $err_url;
 }

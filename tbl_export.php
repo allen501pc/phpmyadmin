@@ -19,7 +19,8 @@ $scripts->addFile('export.js');
  * Gets tables informations and displays top links
  */
 require_once 'libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_export.php&amp;back=tbl_export.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_export.php'.PMA_get_arg_separator('html').'back=tbl_export.php';
 require_once 'libraries/tbl_info.inc.php';
 
 // Dump of a table

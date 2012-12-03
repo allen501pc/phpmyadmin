@@ -32,7 +32,8 @@ if (isset($_REQUEST['submit_sql']) && ! empty($sql_query)) {
 
 $sub_part  = '_qbe';
 require 'libraries/db_common.inc.php';
-$url_query .= '&amp;goto=db_qbe.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
+$url_query .= PMA_get_arg_separator('html').'goto=db_qbe.php';
 $url_params['goto'] = 'db_qbe.php';
 require 'libraries/db_info.inc.php';
 

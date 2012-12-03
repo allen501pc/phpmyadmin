@@ -676,17 +676,19 @@ $sections = array(
  */
 // variable or section name => (name => url)
 $links = array();
-
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
 $links['table'][__('Flush (close) all tables')]
-    = $PMA_PHP_SELF . '?flush=TABLES&amp;' . PMA_generate_common_url();
+    = $PMA_PHP_SELF . '?flush=TABLES'PMA_get_arg_separator('html') . PMA_generate_common_url();
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
 $links['table'][__('Show open tables')]
     = 'sql.php?sql_query=' . urlencode('SHOW OPEN TABLES') .
-        '&amp;goto=server_status.php&amp;' . PMA_generate_common_url();
+        PMA_get_arg_separator('html').'goto=server_status.php'.PMA_get_arg_separator('html') . PMA_generate_common_url();
 
 if ($server_master_status) {
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
     $links['repl'][__('Show slave hosts')]
         = 'sql.php?sql_query=' . urlencode('SHOW SLAVE HOSTS') .
-            '&amp;goto=server_status.php&amp;' . PMA_generate_common_url();
+            PMA_get_arg_separator('html').'goto=server_status.php'.PMA_get_arg_separator(). . PMA_generate_common_url();
     $links['repl'][__('Show master status')] = '#replication_master';
 }
 if ($server_slave_status) {
@@ -694,9 +696,9 @@ if ($server_slave_status) {
 }
 
 $links['repl']['doc'] = 'replication';
-
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
 $links['qcache'][__('Flush query cache')]
-    = $PMA_PHP_SELF . '?flush=' . urlencode('QUERY CACHE') . '&amp;' .
+    = $PMA_PHP_SELF . '?flush=' . urlencode('QUERY CACHE') . PMA_get_arg_separator('html') .
         PMA_generate_common_url();
 $links['qcache']['doc'] = 'query_cache';
 
@@ -709,11 +711,11 @@ $links['key']['doc'] = 'myisam_key_cache';
 $links['binlog_cache']['doc'] = 'binary_log';
 
 $links['Slow_queries']['doc'] = 'slow_query_log';
-
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
 $links['innodb'][__('Variables')]
-    = 'server_engines.php?engine=InnoDB&amp;' . PMA_generate_common_url();
+    = 'server_engines.php?engine=InnoDB'.PMA_get_arg_separator('html') . PMA_generate_common_url();
 $links['innodb'][__('InnoDB Status')]
-    = 'server_engines.php?engine=InnoDB&amp;page=Status&amp;' .
+    = 'server_engines.php?engine=InnoDB'.PMA_get_arg_separator('html').'page=Status'.PMA_get_arg_separator('html') .
         PMA_generate_common_url();
 $links['innodb']['doc'] = 'innodb';
 
@@ -788,7 +790,8 @@ $input = '<input type="hidden" name="%s" value="%s" />';
 
 echo '<form id="js_data" class="hide">';
 printf($input, 'pma_token', $_SESSION[' PMA_token ']);
-printf($input, 'url_query', str_replace('&amp;', '&', PMA_generate_common_url($db)));
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;' and use PMA_get_arg_separator() to replace '&'.
+printf($input, 'url_query', str_replace(PMA_get_arg_separator('html'), PMA_get_arg_separator(), PMA_generate_common_url($db)));
 printf($input, 'server_time_diff', 'new Date().getTime() - ' . (microtime(true) * 1000));
 printf($input, 'server_os', PHP_OS);
 printf($input, 'is_superuser', PMA_isSuperuser());
@@ -836,7 +839,8 @@ echo '</ul>';
 
 echo '<div id="statustabs_traffic" class="clearfloat">';
 echo '<div class="buttonlinks jsfeature">';
-echo '<a class="tabRefresh" href="' . $PMA_PHP_SELF . '?show=server_traffic&amp;'
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+echo '<a class="tabRefresh" href="' . $PMA_PHP_SELF . '?show=server_traffic'.PMA_get_arg_separator('html')
     . PMA_generate_common_url() . '" >';
 echo '<img src="' . $GLOBALS['pmaThemeImage']
     . 'ajax_clock_small.gif" width="16" height="16" '
@@ -866,7 +870,8 @@ echo '</div>';
 echo '</div>';
 echo '<div id="statustabs_queries" class="clearfloat">';
 echo '<div class="buttonlinks jsfeature">';
-echo '<a class="tabRefresh"  href="' . $PMA_PHP_SELF . '?show=query_statistics&amp;'
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+echo '<a class="tabRefresh"  href="' . $PMA_PHP_SELF . '?show=query_statistics'.PMA_get_arg_separator('html')
     . PMA_generate_common_url() . '" >';
 echo '<img src="' . $GLOBALS['pmaThemeImage'] . 'ajax_clock_small.gif" width="16" '
     . 'height="16" alt="ajax clock" style="display: none;" />';
@@ -893,8 +898,9 @@ echo '<div id="statustabs_allvars" class="clearfloat">';
 echo '<fieldset id="tableFilter" class="jsfeature">';
 echo '<legend>' . __('Filters') . '</legend>';
 echo '<div class="buttonlinks">';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
 echo '<a class="tabRefresh" href="' . $PMA_PHP_SELF
-    . '?show=variables_table&amp;' . PMA_generate_common_url() . '" >';
+    . '?show=variables_table'.PMA_get_arg_separator('html') . PMA_generate_common_url() . '" >';
 echo '<img src="' . $GLOBALS['pmaThemeImage'] . 'ajax_clock_small.gif" width="16" '
     . 'height="16" alt="ajax clock" style="display: none;" />';
 echo __('Refresh');

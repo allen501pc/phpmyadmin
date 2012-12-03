@@ -350,10 +350,10 @@ if (isset($_REQUEST['do_save_data'])) {
                 . '</td>' . "\n";
 
             $new_table_string .= '<td>' . $titles['NoEmpty'] . '</td>' . "\n";
-
+	    // Allen: Use PMA_get_arg_separator('htlm') to replace '&amp;'. 
             $new_table_string .= '<td>'
                 . '<a class="drop_table_anchor" href="sql.php'
-                . PMA_generate_common_url($tbl_url_params) . '&amp;sql_query='
+                . PMA_generate_common_url($tbl_url_params) . PMA_get_arg_separator('html').'sql_query='
                 . urlencode('DROP TABLE ' . PMA_Util::backquote($table)) . '">'
                 . $titles['Drop']
                 . '</a>'

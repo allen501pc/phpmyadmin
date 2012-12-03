@@ -30,7 +30,8 @@ if (! $GLOBALS['cfg']['UseDbSearch']) {
         __('Access denied'), '', false, $err_url
     );
 } // end if
-$url_query .= '&amp;goto=db_search.php';
+// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
+$url_query .= PMA_get_arg_separator('html').'goto=db_search.php';
 $url_params['goto'] = 'db_search.php';
 
 // Create a database search instance

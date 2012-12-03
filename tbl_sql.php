@@ -20,7 +20,8 @@ $scripts->addFile('makegrid.js');
 $scripts->addFile('sql.js');
 
 require 'libraries/tbl_common.inc.php';
-$url_query .= '&amp;goto=tbl_sql.php&amp;back=tbl_sql.php';
+// Allen: Replace '&amp;' with PMA_get_arg_separator('html').
+$url_query .= PMA_get_arg_separator('html').'goto=tbl_sql.php'.PMA_get_arg_separator('html').'back=tbl_sql.php';
 
 require_once 'libraries/sql_query_form.lib.php';
 

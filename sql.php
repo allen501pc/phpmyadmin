@@ -98,9 +98,10 @@ if (! empty($goto)) {
 } // end if
 
 if (! isset($err_url)) {
+    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;'.
     $err_url = (! empty($back) ? $back : $goto)
         . '?' . PMA_generate_common_url($db)
-        . ((strpos(' ' . $goto, 'db_') != 1 && strlen($table)) ? '&amp;table=' . urlencode($table) : '');
+        . ((strpos(' ' . $goto, 'db_') != 1 && strlen($table)) ? PMA_get_arg_separator('html').'table=' . urlencode($table) : '');
 } // end if
 
 // Coming from a bookmark dialog
@@ -385,8 +386,9 @@ if (isset($store_bkm)) {
         exit;
     } else {
         // go back to sql.php to redisplay query; do not use &amp; in this case:
+	// Allen: Use PMA_get_arg_separator() to replace '&'.
         PMA_sendHeaderLocation(
-            $cfg['PmaAbsoluteUri'] . $goto . '&label=' . $fields['label']
+            $cfg['PmaAbsoluteUri'] . $goto . PMA_get_arg_separator().'label=' . $fields['label']
         );
     }
 } // end if
@@ -401,9 +403,10 @@ require_once 'libraries/parse_analyze.lib.php';
  */
 if ($goto == 'sql.php') {
     $is_gotofile = false;
+    // Allen: Replace '&amp;' with PMA_get_arg_separator('html').
     $goto = 'sql.php?'
           . PMA_generate_common_url($db, $table)
-          . '&amp;sql_query=' . urlencode($sql_query);
+          . PMA_get_arg_separator('html').'sql_query=' . urlencode($sql_query);
 } // end if
 
 
@@ -422,7 +425,8 @@ if (isset($btnDrop) && $btnDrop == __('No')) {
         include '' . PMA_securePath($goto);
     } else {
         PMA_sendHeaderLocation(
-            $cfg['PmaAbsoluteUri'] . str_replace('&amp;', '&', $goto)
+	    // Allen: Use PMA_get_arg_separator('html') to replace '&amp;' and use PMA_get_arg_separator() to replace '&'
+            $cfg['PmaAbsoluteUri'] . str_replace(PMA_get_arg_separator('html'), PMA_get_arg_separator(), $goto)
         );
     }
     exit();
@@ -644,7 +648,8 @@ if (isset($GLOBALS['show_as_php']) || ! empty($GLOBALS['validatequery'])) {
         } else {
             $full_err_url = $err_url;
             if (preg_match('@^(db|tbl)_@', $err_url)) {
-                $full_err_url .=  '&amp;show_query=1&amp;sql_query='
+		// Allen: Replace '&amp;' with PMA_get_arg_separator('html').
+                $full_err_url .=  PMA_get_arg_separator('html').'show_query=1'.PMA_get_arg_separator('html').'sql_query='
                     . urlencode($sql_query);
             }
             PMA_Util::mysqlDie($error, $full_sql_query, '', $full_err_url);
@@ -962,8 +967,9 @@ if ((0 == $num_rows && 0 == $unlim_num_rows) || $is_affected) {
         if (0 == $num_rows && 'sql.php' == $cfg['DefaultTabTable']) {
             $goto = str_replace('sql.php', 'tbl_structure.php', $goto);
         }
-        PMA_sendHeaderLocation(
-            $cfg['PmaAbsoluteUri'] . str_replace('&amp;', '&', $goto)
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;' and use PMA_get_arg_separator() to replace '&'.
+        PMA_sendHeaderLocation(	 
+            $cfg['PmaAbsoluteUri'] . str_replace(PMA_get_arg_separator('html'), PMA_get_arg_separator(), $goto)
             . '&message=' . urlencode($message)
         );
     } // end else
@@ -1092,7 +1098,8 @@ if ((0 == $num_rows && 0 == $unlim_num_rows) || $is_affected) {
         if (! $GLOBALS['is_ajax_request'] || ! $GLOBALS['cfg']['AjaxEnable']) {
             if (strlen($table)) {
                 include 'libraries/tbl_common.inc.php';
-                $url_query .= '&amp;goto=tbl_sql.php&amp;back=tbl_sql.php';
+		// Allen: Use PMA_get_arg_separator('html') to replace &amp;
+                $url_query .= PMA_get_arg_separator('html').'goto=tbl_sql.php'.PMA_get_arg_separator('html').'back=tbl_sql.php';
                 include 'libraries/tbl_info.inc.php';
             } elseif (strlen($db)) {
                 include 'libraries/db_common.inc.php';
@@ -1241,10 +1248,11 @@ if ((0 == $num_rows && 0 == $unlim_num_rows) || $is_affected) {
         && ! empty($sql_query)
     ) {
         echo "\n";
+	// Allen: Use PMA_get_arg_separator('html') to replace &amp;.
         $goto = 'sql.php?'
               . PMA_generate_common_url($db, $table)
-              . '&amp;sql_query=' . urlencode($sql_query)
-              . '&amp;id_bookmark=1';
+              . PMA_get_arg_separator('html').'sql_query=' . urlencode($sql_query)
+              . PMA_get_arg_separator('html').'id_bookmark=1';
 
         echo '<form action="sql.php" method="post"'
             . ' onsubmit="return emptyFormElements(this, \'fields[label]\');"'

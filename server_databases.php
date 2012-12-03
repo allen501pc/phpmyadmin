@@ -330,7 +330,8 @@ if ($databases_count > 0) {
 
     if (empty($dbstats)) {
         echo '<ul><li id="li_switch_dbstats"><strong>' . "\n";
-            echo '<a href="server_databases.php?' . $url_query . '&amp;dbstats=1"'
+	// Allen: Use PMA_get_arg_separator('html') to replace '&amp;'. 
+            echo '<a href="server_databases.php?' . $url_query . PMA_get_arg_separator('html').'dbstats=1"'
                 . ' title="' . __('Enable Statistics') . '">' . "\n"
                 . '            ' . __('Enable Statistics');
         echo '</a></strong><br />' . "\n";
